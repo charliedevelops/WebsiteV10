@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.blog-content h1 {
+    @apply text-4xl;
+  }
+  
+  .blog-content h2 {
+    @apply text-3xl;
+  }
+  
+  .blog-content h3 {
+    @apply text-2xl;
+  }
+  
+  .blog-content h4 {
+    @apply text-xl;
+  }
