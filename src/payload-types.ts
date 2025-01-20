@@ -104,6 +104,8 @@ export interface Media {
 export interface Blog {
   id: number;
   title: string;
+  slug: string;
+  description: string;
   heroImage?: (number | null) | Media;
   content: {
     root: {
@@ -120,6 +122,7 @@ export interface Blog {
     };
     [k: string]: unknown;
   };
+  content_html?: string | null;
   publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -132,21 +135,8 @@ export interface Project {
   id: number;
   image?: (number | null) | Media;
   'Project Name': string;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  slug: string;
+  description: string;
   Content: {
     root: {
       type: string;
@@ -271,8 +261,11 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface BlogSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
+  description?: T;
   heroImage?: T;
   content?: T;
+  content_html?: T;
   publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -284,6 +277,7 @@ export interface BlogSelect<T extends boolean = true> {
 export interface ProjectsSelect<T extends boolean = true> {
   image?: T;
   'Project Name'?: T;
+  slug?: T;
   description?: T;
   Content?: T;
   'Video Link'?: T;

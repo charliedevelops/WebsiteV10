@@ -18,8 +18,30 @@ export const Projects: CollectionConfig = {
       required: true,
     },
     {
+      name: 'slug',
+      type: 'text',
+      unique: true,
+      required: true,
+      hooks: {
+        beforeValidate: [
+          ({ data, operation }) => {
+            if (operation === 'create' || operation === 'update') {
+              // If the slug is empty, generate one from the title
+              if (!data?.slug && data?.title) {
+                data.slug = data.title
+                  .toLowerCase()
+                  .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+                  .replace(/\s+/g, '-') // Replace spaces with hyphens
+                  .replace(/-+/g, '-') // Replace multiple hyphens with a single one
+              }
+            }
+          },
+        ],
+      },
+    },
+    {
       name: 'description',
-      type: 'richText',
+      type: 'textarea',
       required: true,
     },
     {

@@ -32,6 +32,10 @@ export default {
           },
         },
       },
+
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],

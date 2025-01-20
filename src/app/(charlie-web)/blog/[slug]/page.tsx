@@ -7,6 +7,7 @@ import React, { cache } from 'react'
 import { notFound } from 'next/navigation'
 import RichText from '@/components/RichText'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
+
 import './blog-styles.css'
 import type { Blog } from '@/payload-types'
 
@@ -31,7 +32,7 @@ export async function generateStaticParams() {
   })
 
   return posts.docs.map((post) => ({
-    slug: post.title,
+    slug: post.slug,
   }))
 }
 
@@ -77,7 +78,7 @@ const queryPostBySlug = cache(async ({ title }: { title: string }) => {
     overrideAccess: draft,
     pagination: false,
     where: {
-      title: {
+      slug: {
         equals: title,
       },
     },

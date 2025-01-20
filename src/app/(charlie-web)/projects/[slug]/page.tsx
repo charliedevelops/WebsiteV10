@@ -54,20 +54,51 @@ export default async function Post({ params: paramsPromise }: Args) {
     <article className="pt-16 pb-16">
       <PageClient />
 
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="prose">
+      <section className="hero bg-gray-800 text-white py-16">
+        <div className="container mx-auto text-center">
+          <h1 className="text-5xl font-bold mb-4">{post['Project Name']}</h1>
+          <p className="text-xl mb-8">{post.description}</p>
           <Image
             src={(typeof post.image === 'object' && post.image?.url) || ''}
-            alt="alt"
-            width={500}
-            height={500}
+            alt="Project Image"
+            width={800}
+            height={450}
+            className="mx-auto rounded-lg shadow-lg"
           />
-
-          <h1 className="text-4xl font-bold mb-4 text-white">{post['Project Name']}</h1>
-
-          <RichTextComponent data={post.Content} />
         </div>
-      </div>
+      </section>
+
+      <section className="project-overview py-16">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold mb-8">Project Overview</h2>
+          <div className="prose lg:prose-xl mx-auto">
+            <RichTextComponent data={post.Content} />
+          </div>
+        </div>
+      </section>
+
+      <section className="project-features py-16 bg-gray-100">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-center">Features</h2>
+          <ul className="list-disc list-inside">
+            {post.features?.map((feature, index) => (
+              <li key={index} className="text-lg mb-4">
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="call-to-action py-16 bg-gray-800 text-white text-center">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold mb-4">Interested in this project?</h2>
+          <p className="text-xl mb-8">Contact us to learn more or start a similar project.</p>
+          <a href="/contact" className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg">
+            Contact Us
+          </a>
+        </div>
+      </section>
     </article>
   )
 }
@@ -84,7 +115,7 @@ const queryPostBySlug = cache(async ({ title }: { title: string }) => {
     overrideAccess: draft,
     pagination: false,
     where: {
-      'Project Name': {
+      slug: {
         equals: title,
       },
     },

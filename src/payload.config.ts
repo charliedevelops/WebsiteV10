@@ -21,6 +21,10 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    livePreview: {
+      url: 'http://localhost:3000',
+      collections: ['blog'],
+    },
   },
   collections: [Users, Media, Blog, Projects],
 
