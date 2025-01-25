@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Logo from '@/components/logo'
 import Card from '@/components/projectcard'
 import { motion, AnimatePresence } from 'framer-motion'
+import Navbar from '@/components/navbar'
 
 export default function Home() {
   interface Project {
@@ -51,8 +52,8 @@ export default function Home() {
     <div className="min-h-screen p-4 sm:px-28 md:p-8 lg:p-10 font-[family-name:var(--font-inter)] bg-[#0A090C] text-white">
       <main className="flex flex-col gap-6 md:gap-8 items-center justify-center dark:[color-scheme:light_dark]">
         <div className="flex flex-col gap-4 text-center justify-center items-center w-full">
-          <Logo isNav={false} />
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-16 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white/20">
+          <Navbar isNav={false} />
+          <div className=" hidden   md:flex lg:flex md:flex-row lg:flex-row sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-16 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white/20">
             <Link href="/projects?category=fx">
               <h2 className="hover:text-[#FF2800] transition-all duration-300 ease-in-out cursor-pointer">
                 FX
@@ -110,7 +111,7 @@ export default function Home() {
 
             <Link
               href={'/blog/smart-home-automation-with-home-assistant'}
-              className="bg-[#1D1D1D]/40 rounded-3xl p-4 sm:p-4 text-white flex flex-col gap-2 justify-between lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-3 md:col-start-2 md:row-start-6  sm:hidden hover:scale-105 transition-all duration-300 ease-in-out"
+              className="bg-[#1D1D1D]/40 rounded-3xl p-4 sm:p-4 text-white flex flex-col gap-2 justify-between lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-3 md:col-start-2 md:row-start-6 lg:flex sm:hidden hover:scale-105 transition-all duration-300 ease-in-out"
             >
               <h2 className="text-lg sm:text-xl font-semibold">Latest Blog Post</h2>
               <div className="border-2 border-white/30 rounded-xl p-6">
