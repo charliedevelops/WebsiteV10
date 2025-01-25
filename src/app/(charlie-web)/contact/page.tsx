@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 const Contact = () => {
   return (
     <div id="contact" className="flex flex-col items-center gap-4 container mx-auto px-4 py-8">
-      <Navbar />
+      <Navbar isNav={true} />
       <div className="p-8 w-full max-w-2xl flex flex-col gap-6  rounded-2xl">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white/80 mb-4">
           Contact

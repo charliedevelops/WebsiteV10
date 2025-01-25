@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import ClientProjects from './page.client'
 
-export async function fetchProjects() {
+async function fetchProjects() {
   try {
     const payload = await getPayload({ config: configPromise })
 
@@ -25,7 +25,7 @@ export async function fetchProjects() {
       ProjectName: project['Project Name'] || '',
       description: project.Content.description || '',
       tags: Array.isArray(project.tags?.tags) ? project.tags.tags : [],
-      image: project['Header Image'],
+      image: project['Header Image'] ? { url: project['Header Image'] } : undefined,
     }))
   } catch (error) {
     console.error('Error fetching projects:', error)

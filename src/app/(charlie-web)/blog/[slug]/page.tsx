@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import readingTime from 'reading-time'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -10,13 +9,11 @@ import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 import { format } from 'date-fns'
 
 import './blog-styles.css'
-import type { Blog } from '@/payload-types'
 
-import PageClient from './page.client'
 import Divider from '@/components/divider'
 import Navbar from '@/components/navbar'
 
-export const RichTextComponent = ({ data }: { data: SerializedEditorState }) => {
+const RichTextComponent = ({ data }: { data: SerializedEditorState }) => {
   return <RichText data={data} />
 }
 
@@ -51,7 +48,6 @@ type Args = {
 }
 
 export default async function Post({ params: paramsPromise }: Args) {
-  const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
   const post = await queryPostBySlug({ title: slug })
   const stats = readingTime(post.content_html || '')
@@ -64,7 +60,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   return (
     <div id="blog" className="flex flex-col items-center gap-4 container mx-auto px-4 py-8 ">
-      <Navbar />
+      <Navbar isNav={true} />
       <article className="min-h-screen  text-white ">
         <div className="relative min-h-screen   pt-16 pb-16">
           <div className="container max-w-4xl mx-auto px-4">

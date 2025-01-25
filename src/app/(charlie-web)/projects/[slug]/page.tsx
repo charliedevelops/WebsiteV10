@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
@@ -8,10 +6,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import RichText from '@/components/RichText'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
-import type { Blog } from '@/payload-types'
 
-import PageClient from './page.client'
-import NavbarWithLogo from '@/components/navbar'
 import { FaReact, FaYoutube, FaGithub, FaArtstation } from 'react-icons/fa'
 import {
   SiNextdotjs,
@@ -28,7 +23,7 @@ import {
 } from 'react-icons/si'
 import Navbar from '@/components/navbar'
 
-export const RichTextComponent = ({ data }: { data: SerializedEditorState }) => {
+const RichTextComponent = ({ data }: { data: SerializedEditorState }) => {
   return <RichText data={data} />
 }
 
@@ -81,7 +76,6 @@ const iconMapping = {
 }
 
 export default async function Post({ params: paramsPromise }: Args) {
-  const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
   const post = await queryPostBySlug({ title: slug })
 
@@ -91,8 +85,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   return (
     <article className="min-h-screen bg-gradient-to-b  mx-auto px-4 py-8">
-      <Navbar />
-      <PageClient />
+      <Navbar isNav={true} />
       <section className="relative pt-10 pb-20">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">

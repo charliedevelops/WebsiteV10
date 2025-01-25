@@ -61,7 +61,7 @@ const ClientProjects: React.FC<ClientProjectsProps> = ({ projects }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      <Navbar />
+      <Navbar isNav={true} />
 
       <div className="relative flex flex-row items-center mb-8">
         <div className="filters flex justify-items-start gap-1 flex-col">

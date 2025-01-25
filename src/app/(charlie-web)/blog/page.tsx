@@ -1,8 +1,6 @@
-import { CollectionAfterChangeHook } from 'payload'
-import payload from 'payload'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-const readingTime = require('reading-time')
+import readingTime from 'reading-time'
 import { format } from 'date-fns'
 import Navbar from '@/components/navbar'
 import Link from 'next/link'
@@ -41,7 +39,7 @@ const BlogPage = async () => {
 
   return (
     <div id="blog" className="flex flex-col items-center gap-4 container mx-auto px-4 py-8">
-      <Navbar />
+      <Navbar isNav={true} />
       <div className="p-8">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white/80">
           Blog

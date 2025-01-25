@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import Logo from '@/components/logo'
 import Card from '@/components/projectcard'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from '@/components/navbar'
