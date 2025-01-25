@@ -1,10 +1,13 @@
 'use client'
-
 import Link from 'next/link'
 import Logo from '@/components/logo'
 import { useState, useEffect } from 'react'
 
-const Navbar = () => {
+interface NavbarProps {
+  isNav?: boolean
+}
+
+const Navbar = ({ isNav }: { isNav: boolean }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const [prevScrollPos, setPrevScrollPos] = useState(0)
@@ -24,7 +27,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={` w-full  top-0 z-50  transition-all duration-500  text-white  ${
+      className={` w-full  top-0 z-50  transition-all duration-500 p-8 sm:p-2 md:p-4 lg:p4 text-white  ${
         isVisible ? 'translate-y-0' : '-translate-y-full '
       }
       ${isScrolled ? ' ' : 'bg-transparent '}`}
@@ -37,51 +40,51 @@ const Navbar = () => {
               href="/"
               className="flex items-center hover:opacity-80 transition-opacity duration-200"
             >
-              <Logo isNav={true} />
+              <Logo isNav={isNav} />
             </Link>
           </div>
-          <div className="hidden lg:flex items-center ml-auto">
-            <ul className="flex items-center space-x-8 pr-4">
-              <li>
-                <Link
-                  href="/"
-                  className="text-gray-300 hover:text-gray-400 transition-all duration-200 font-medium  "
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects"
-                  className="text-gray-300 hover:text-gray-400 transition-all duration-200 font-medium "
-                >
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="text-gray-300 hover:text-gray-400 transition-all duration-200 font-medium"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-gray-300 hover:text-gray-400 transition-all duration-200 font-medium"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center">
+          {isNav && (
+            <div className="hidden lg:flex items-center ml-auto">
+              <ul className="flex items-center space-x-8 pr-4">
+                <li>
+                  <Link
+                    href="/"
+                    className="text-gray-300 hover:text-gray-400 transition-all duration-200 font-medium  "
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/projects"
+                    className="text-gray-300 hover:text-gray-400 transition-all duration-200 font-medium "
+                  >
+                    Projects
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/blog"
+                    className="text-gray-300 hover:text-gray-400 transition-all duration-200 font-medium"
+                  >
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="text-gray-300 hover:text-gray-400 transition-all duration-200 font-medium"
+                  >
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          )}
+          <div className="md:hidden lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-800 hover:text-blue-600 transition-colors duration-200 focus:outline-none"
+              className="text-white hover:text-white transition-colors duration-200 focus:outline-none"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
@@ -95,25 +98,21 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link
-                href="/"
-                className="block px-3 py-2 text-gray-800 hover:text-blue-600 transition-colors duration-200"
-              >
+          <div className="lg:hidden md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 transition-all duration-200">
+              <Link href="/" className="block px-3 py-2 text-white transition-colors duration-200">
                 Home
               </Link>
               <Link
                 href="/projects"
-                className="block px-3 py-2 text-gray-800 hover:text-blue-600 transition-colors duration-200"
+                className="block px-3 py-2 text-white  transition-colors duration-200"
               >
                 Projects
               </Link>
               <Link
                 href="/blog"
-                className="block px-3 py-2 text-gray-800 hover:text-blue-600 transition-colors duration-200"
+                className="block px-3 py-2 text-white  transition-colors duration-200"
               >
                 Blog
               </Link>
