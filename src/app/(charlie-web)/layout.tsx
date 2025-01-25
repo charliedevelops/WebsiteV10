@@ -1,6 +1,8 @@
+// src/app/(charlie-web)/layout.tsx
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
+import ClientLayout from './client-layout'
 
 const inter = localFont({
   src: '../fonts/InterVariable.woff2',
@@ -21,7 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} font-sans antialiased`}>
-      <body>{children}</body>
+      <body>
+        <ClientLayout>{children}</ClientLayout>
+      </body>
     </html>
   )
 }

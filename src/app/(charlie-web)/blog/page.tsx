@@ -40,14 +40,14 @@ const BlogPage = async () => {
   )
 
   return (
-    <div id="blog" className="flex flex-col items-center gap-4 pt-8">
+    <div id="blog" className="flex flex-col items-center gap-4 container mx-auto px-4 py-8">
       <Navbar />
       <div className="p-8">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white/80">
           Blog
         </h2>
       </div>
-      <div className=" flex flex-col gap-4 w-1/3 justify-center cursor-pointer">
+      <div className=" flex flex-col gap-4 w-2/5 justify-center cursor-pointer">
         {posts.map((post, index) => (
           <Link href={`/blog/${post.slug}`} key={post.slug}>
             <div className="flex flex-col items-start gap-2   rounded-2xl p-8 text-wrap hover:bg-black/40 transition-all duration-300 ease-in-out">

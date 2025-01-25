@@ -133,27 +133,58 @@ export interface Blog {
  */
 export interface Project {
   id: number;
-  image?: (number | null) | Media;
+  'Header Image'?: (number | null) | Media;
   'Project Name': string;
   slug: string;
-  description: string;
   Content: {
-    root: {
-      type: string;
-      children: {
+    description: string;
+    Content: {
+      root: {
         type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
+      };
+      [k: string]: unknown;
     };
-    [k: string]: unknown;
   };
-  'Video Link'?: string | null;
-  tags?: ('web-development' | 'mobile-development' | 'design' | 'marketing')[] | null;
+  Links?: {
+    YouTube?: string | null;
+    GitHub?: string | null;
+    Artstation?: string | null;
+  };
+  'Tech stack'?: {
+    technologies?:
+      | (
+          | 'react'
+          | 'next'
+          | 'tailwind'
+          | 'typescript'
+          | 'houdini'
+          | 'blender'
+          | 'fusion'
+          | 'substance'
+          | 'unreal'
+          | 'unity'
+          | 'embergen'
+          | 'figma'
+          | 'photoshop'
+          | 'illustrator'
+          | 'aftereffects'
+          | 'premierepro'
+          | 'davinciresolve'
+        )[]
+      | null;
+  };
+  tags?: {
+    tags?: ('fx' | 'dev' | 'design')[] | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -275,13 +306,32 @@ export interface BlogSelect<T extends boolean = true> {
  * via the `definition` "projects_select".
  */
 export interface ProjectsSelect<T extends boolean = true> {
-  image?: T;
+  'Header Image'?: T;
   'Project Name'?: T;
   slug?: T;
-  description?: T;
-  Content?: T;
-  'Video Link'?: T;
-  tags?: T;
+  Content?:
+    | T
+    | {
+        description?: T;
+        Content?: T;
+      };
+  Links?:
+    | T
+    | {
+        YouTube?: T;
+        GitHub?: T;
+        Artstation?: T;
+      };
+  'Tech stack'?:
+    | T
+    | {
+        technologies?: T;
+      };
+  tags?:
+    | T
+    | {
+        tags?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
