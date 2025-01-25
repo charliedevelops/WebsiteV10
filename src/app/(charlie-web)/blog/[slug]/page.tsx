@@ -79,7 +79,8 @@ export default async function Post({ params: paramsPromise }: Args) {
             <p className="text-xl text-gray-300 mb-6">{post.description}</p>
 
             <Divider />
-            <div className="prose prose-lg prose-invert leading-relaxed">
+
+            <div className="pt-10 prose prose-lg prose-invert leading-relaxed">
               <RichTextComponent data={post.content} />
             </div>
           </div>

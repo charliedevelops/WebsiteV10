@@ -1,3 +1,16 @@
+import {
+  BlocksFeature,
+  FixedToolbarFeature,
+  HeadingFeature,
+  HorizontalRuleFeature,
+  HTMLConverterFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
+import { Banner } from '@/blocks/Banner/config'
+import { Code } from '@/blocks/Code/config'
+import { MediaBlock } from '@/blocks/MediaBlock/config'
+import { iFrameBlock } from '@/blocks/Embed/config'
 import type { CollectionConfig } from 'payload'
 
 export const Projects: CollectionConfig = {
@@ -54,6 +67,19 @@ export const Projects: CollectionConfig = {
               name: 'Content',
               type: 'richText',
               required: true,
+              editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                  return [
+                    ...rootFeatures,
+                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                    BlocksFeature({ blocks: [Banner, Code, MediaBlock, iFrameBlock] }),
+                    FixedToolbarFeature(),
+                    InlineToolbarFeature(),
+                    HorizontalRuleFeature(),
+                    HTMLConverterFeature({}),
+                  ]
+                },
+              }),
             },
           ],
         },

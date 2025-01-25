@@ -19,30 +19,30 @@ export default function Home() {
       slug: 'checky',
       ProjectName: 'Checky',
       description: 'Simple check-in for businesses',
-      tags: ['Web', 'Business'],
+      tags: ['Web'],
       image: {
-        url: '/api/media/file/Recent%20Check-Ins.png',
+        url: '/thumbnails/checky.png',
         alt: 'Checky',
       },
     },
     {
-      slug: 'kitchen',
-      ProjectName: 'Kitchen',
-      description: 'A recipe',
-      tags: ['Web', 'Food'],
+      slug: 'charlie-web',
+      ProjectName: 'Charlie-Web',
+      description: 'My personal website (Version 10)',
+      tags: ['Web'],
       image: {
-        url: '/api/media/file/Recent%20Check-Ins.png',
+        url: '/thumbnails/charlie-web.png',
         alt: 'Checky',
       },
     },
     {
-      slug: 'sdfsd',
-      ProjectName: 'Kitchen',
-      description: 'A recipe',
-      tags: ['Web', 'Food'],
+      slug: 'kitchen-archviz',
+      ProjectName: 'Kitchen ArchViz',
+      description: 'Complete 3D recreation of a kitchen in Blender',
+      tags: ['FX'],
       image: {
-        url: '/api/media/file/Recent%20Check-Ins.png',
-        alt: 'Checky',
+        url: '/thumbnails/kitchen.png',
+        alt: 'Kitchen ArchViz',
       },
     },
   ]
@@ -103,9 +103,9 @@ export default function Home() {
             </Link>
             <Link
               href={'https://www.youtube.com/watch?v=hpsKNMoY4TI'}
-              className="h-full lg:col-span-1 lg:col-start-3 lg:row-span-3 lg:row-start-4 md:row-start-1 md:row-span-3 aspect-video"
+              className="h-full lg:col-span-1 lg:col-start-3 lg:row-span-3 lg:row-start-4 md:row-start-1 md:row-span-3  sm:aspect-video"
             >
-              <div className="bg-[#1D1D1D]/40 rounded-3xl p-4 sm:p-4 h-full text-white lg:col-span-1 lg:col-start-3 lg:row-span-3 lg:row-start-4 hover:scale-105 transition-all duration-300 ease-in-out bg-[url('/thumbnails/kitchen.png')] bg-cover bg-center"></div>
+              <div className="bg-[#1D1D1D]/40 rounded-3xl p-4 sm:p-4 h-full text-white lg:col-span-1 lg:col-start-3 lg:row-span-3 lg:row-start-4 hover:scale-105 transition-all duration-300 ease-in-out bg-[url('/thumbnails/showreel.png')] bg-cover bg-center"></div>
             </Link>
 
             <Link
@@ -123,7 +123,7 @@ export default function Home() {
               <Link href={`/projects/checky`}>
                 <div className="rounded-3xl">
                   <Image
-                    src="/thumbnails/kitchen.png"
+                    src="/thumbnails/checky.png"
                     alt="Kitchen"
                     width={400}
                     height={300}

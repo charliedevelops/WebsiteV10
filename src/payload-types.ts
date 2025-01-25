@@ -431,6 +431,16 @@ export interface MediaBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "iFrameBlock".
+ */
+export interface IFrameBlock {
+  iFrame: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'iFrameBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {

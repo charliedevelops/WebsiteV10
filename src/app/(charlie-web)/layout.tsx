@@ -14,6 +14,9 @@ const inter = localFont({
 export const metadata: Metadata = {
   title: 'Charlie | FX | Develop | Design',
   description: 'Home of Charlie',
+  icons: {
+    icon: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
