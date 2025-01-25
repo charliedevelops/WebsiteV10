@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import ClientProjects from './page.client'
@@ -25,7 +24,12 @@ async function fetchProjects() {
       ProjectName: project['Project Name'] || '',
       description: project.Content.description || '',
       tags: Array.isArray(project.tags?.tags) ? project.tags.tags : [],
-      image: project['Header Image'] ? { url: project['Header Image'] } : undefined,
+      image:
+        project['Header Image'] &&
+        typeof project['Header Image'] === 'object' &&
+        'url' in project['Header Image']
+          ? { url: project['Header Image'].url }
+          : null,
     }))
   } catch (error) {
     console.error('Error fetching projects:', error)
