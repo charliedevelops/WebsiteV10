@@ -1,7 +1,7 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import ClientProjects from './page.client'
-
+export const revalidate = 60
 async function fetchProjects() {
   try {
     const payload = await getPayload({ config: configPromise })

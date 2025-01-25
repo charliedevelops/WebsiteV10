@@ -1,3 +1,4 @@
+export const revalidate = 60
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import readingTime from 'reading-time'
