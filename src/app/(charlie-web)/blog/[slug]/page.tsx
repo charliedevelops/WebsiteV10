@@ -52,7 +52,6 @@ export default async function Post({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
   const post = await queryPostBySlug({ title: slug })
   const stats = readingTime(post.content_html || '')
-
   const formattedDate = post.publishedAt ? format(new Date(post.publishedAt), 'MMMM dd, yyyy') : ''
 
   if (!post) {
@@ -60,37 +59,36 @@ export default async function Post({ params: paramsPromise }: Args) {
   }
 
   return (
-    <div id="blog" className="flex flex-col items-center gap-4 container mx-auto px-4 py-8 ">
+    <div
+      id="blog"
+      className="flex flex-col items-center gap-4 container mx-auto px-4 py-8 min-h-screen"
+    >
       <Navbar isNav={true} />
-      <article className="min-h-screen  text-white ">
-        <div className="relative min-h-screen   pt-16 pb-16">
-          <div className="container max-w-4xl mx-auto px-4">
-            <div className="flex items-center justify-start gap-4 text-gray-200 mb-4">
-              <div className="flex items-center">
-                <p>{formattedDate}</p>
-              </div>
-              <div className="flex items-center">
-                <p className="text-lg">{Math.ceil(stats.minutes)} min read</p>
-              </div>
-            </div>
-            <h1 className="text-6xl font-bold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r text-white">
-              {post.title}
-            </h1>
+      <article className="w-full max-w-4xl rounded-lg shadow-lg text-white flex flex-col gap-4">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+          {post.title}
+        </h1>
+        <p className="text-sm sm:text-base text-gray-300 mt-2">{post.description}</p>
 
-            <p className="text-xl text-gray-300 mb-6">{post.description}</p>
+        <div className="flex sm:flex-row items-center justify-start gap-4 text-gray-400 ">
+          <div className="flex items-center">
+            <p>{formattedDate}</p>
+          </div>
+          <div className="flex items-center">
+            <p className="text-lg">{Math.ceil(stats.minutes)} min read</p>
+          </div>
+        </div>
 
-            <Divider />
-
-            <div className="pt-10 prose prose-lg prose-invert leading-relaxed">
-              <RichTextComponent data={post.content} />
-            </div>
+        <Divider className="mx-auto" />
+        <div className="p-4 sm:px-8">
+          <div className=" prose prose-sm sm:prose-base md:prose-lg prose-invert leading-relaxed">
+            <RichTextComponent data={post.content} />
           </div>
         </div>
       </article>
     </div>
   )
 }
-
 const queryPostBySlug = cache(async ({ title }: { title: string }) => {
   const { isEnabled: draft } = await draftMode()
 
