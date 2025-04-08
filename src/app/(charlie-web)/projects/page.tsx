@@ -1,7 +1,8 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import ClientProjects from './page.client'
-export const revalidate = 60
+// Remove static revalidate value since we're using on-demand revalidation
+
 async function fetchProjects() {
   try {
     const payload = await getPayload({ config: configPromise })
@@ -52,10 +53,10 @@ export default async function ProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0A090C] to-black text-white pt-8">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A090C] to-black text-white">
       <div className="absolute top-0 left-0 right-0 h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.1),transparent_70%)] z-0"></div>
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="relative z-10">
         <ClientProjects projects={projects} />
       </div>
     </div>

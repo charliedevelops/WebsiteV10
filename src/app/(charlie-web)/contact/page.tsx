@@ -79,122 +79,130 @@ const Contact = () => {
   return (
     <div
       id="contact"
-      className="flex flex-col items-center w-full min-h-screen bg-gradient-to-b from-background to-background/90"
+      className="flex flex-col items-center w-full min-h-screen bg-gradient-to-b from-[#0A090C] to-black text-white"
     >
+      <div className="absolute top-0 left-0 right-0 h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.1),transparent_70%)] z-0"></div>
       <ContactAnimations />
-      <Navbar isNav={true} />
 
-      <motion.div
-        className="container mx-auto px-4 py-16 flex flex-col items-center"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
+      <div className="relative z-10 w-full">
+        <Navbar isNav={true} />
         <motion.div
-          className="p-8 w-full max-w-2xl flex flex-col gap-6 backdrop-blur-sm bg-black/20 rounded-2xl border border-white/10 shadow-lg"
-          variants={itemVariants}
+          className="container mx-auto px-4 pt-12 pb-8 flex flex-col items-center"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
         >
-          <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
+          <motion.div
+            className="p-8 w-full max-w-2xl flex flex-col gap-6 backdrop-blur-sm bg-black/20 rounded-2xl border border-white/10 shadow-lg"
             variants={itemVariants}
           >
-            Let&apos;s <span className="text-[#FFF94D]">Connect</span>
-          </motion.h1>
-
-          {submitStatus.success ? (
-            <motion.div
-              className="bg-green-500/20 border border-green-500/50 text-white p-4 rounded-lg"
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
               variants={itemVariants}
             >
-              <p>{submitStatus.message}</p>
-            </motion.div>
-          ) : (
-            <motion.form
-              variants={itemVariants}
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-6"
-            >
-              {submitStatus.message && !submitStatus.success && (
-                <div className="bg-red-500/20 border border-red-500/50 text-white p-4 rounded-lg">
-                  <p>{submitStatus.message}</p>
-                </div>
-              )}
+              Let&apos;s <span className="text-[#FFF94D]">Connect</span>
+            </motion.h1>
 
-              <motion.label className="grid gap-2" variants={itemVariants}>
-                <h2 className="text-xl font-medium text-white/90">Your email</h2>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="p-3 rounded-lg border border-white/20 bg-black/30 text-white text-lg focus:outline-none focus:ring-2 focus:ring-[#FFF94D]/50 transition-all"
-                  required
-                  placeholder="email@example.com"
-                />
-              </motion.label>
-
-              <motion.label className="grid gap-2" variants={itemVariants}>
-                <h2 className="text-xl font-medium text-white/90">Your message</h2>
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="p-3 rounded-lg border border-white/20 bg-black/30 text-white text-lg h-56 w-full focus:outline-none focus:ring-2 focus:ring-[#FFF94D]/50 transition-all resize-none"
-                  required
-                  placeholder="Tell me about your project or inquiry..."
-                ></textarea>
-              </motion.label>
-
-              <motion.div className="mt-2" variants={itemVariants}>
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`
-                    bg-[#FFF94D] text-black py-3 px-6 rounded-lg font-medium text-lg
-                    transition-all duration-300 relative overflow-visible
-                    disabled:opacity-100 disabled:cursor-not-allowed hover:shadow-[0_0_20px_rgba(255,249,77,0.4)]
-                    ${isSubmitting ? 'glow-button' : ''}
-                  `}
-                >
-                  <span className="relative z-10">
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </span>
-
-                  {isSubmitting && (
-                    <span className="absolute inset-0 -z-10 rounded-lg overflow-hidden">
-                      <span className="absolute inset-0 animate-pulse-slow opacity-70 bg-[#FFF94D]"></span>
-                      <span className="absolute top-0 left-0 h-[500%] w-[200%] -translate-x-[50%] -translate-y-[25%] animate-spin-slow opacity-60 bg-[radial-gradient(ellipse_at_center,_rgba(255,249,77,0.8)_0%,_transparent_60%)]"></span>
-                      <span className="absolute inset-0 animate-glow-slow bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.8)_0%,_transparent_50%)]"></span>
-                    </span>
-                  )}
-                </Button>
-              </motion.div>
-            </motion.form>
-          )}
-
-          <motion.div className="mt-6 border-t border-white/10 pt-6" variants={itemVariants}>
-            <p className="text-white/70 mb-3">Prefer to email directly?</p>
-            <a
-              href="mailto:hi@charliefox.dev"
-              className="text-[#FFF94D] font-medium flex items-center gap-2 hover:underline transition-all"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {submitStatus.success ? (
+              <motion.div
+                className="bg-green-500/20 border border-green-500/50 text-white p-4 rounded-lg"
+                variants={itemVariants}
               >
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-              hi@charliefox.dev
-            </a>
+                <p>{submitStatus.message}</p>
+              </motion.div>
+            ) : (
+              <motion.form
+                variants={itemVariants}
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-6"
+              >
+                {submitStatus.message && !submitStatus.success && (
+                  <div className="bg-red-500/20 border border-red-500/50 text-white p-4 rounded-lg">
+                    <p>{submitStatus.message}</p>
+                  </div>
+                )}
+
+                <motion.label className="grid gap-2" variants={itemVariants}>
+                  <h2 className="text-xl font-medium text-white/90">Your email</h2>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="p-3 rounded-lg border border-white/20 bg-black/30 text-white text-lg 
+                      outline-none transition-all duration-200
+                      focus:border-[#FFF94D]/50 focus:ring-2 focus:ring-[#FFF94D]/20 focus:shadow-[0_0_10px_rgba(255,249,77,0.15)]"
+                    required
+                    placeholder="email@example.com"
+                  />
+                </motion.label>
+
+                <motion.label className="grid gap-2" variants={itemVariants}>
+                  <h2 className="text-xl font-medium text-white/90">Your message</h2>
+                  <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="p-3 rounded-lg border border-white/20 bg-black/30 text-white text-lg h-56 w-full 
+                      outline-none transition-all duration-200
+                      focus:border-[#FFF94D]/50 focus:ring-2 focus:ring-[#FFF94D]/20 focus:shadow-[0_0_10px_rgba(255,249,77,0.15)]
+                      resize-none"
+                    required
+                    placeholder="Tell me about your project or inquiry..."
+                  ></textarea>
+                </motion.label>
+
+                <motion.div className="mt-2" variants={itemVariants}>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`
+                      bg-[#FFF94D] text-black py-3 px-6 rounded-lg font-medium text-lg
+                      transition-all duration-300 relative overflow-visible
+                      disabled:opacity-100 disabled:cursor-not-allowed hover:shadow-[0_0_20px_rgba(255,249,77,0.4)]
+                      ${isSubmitting ? 'glow-button' : ''}
+                    `}
+                  >
+                    <span className="relative z-10">
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                    </span>
+
+                    {isSubmitting && (
+                      <span className="absolute inset-0 -z-10 rounded-lg overflow-hidden">
+                        <span className="absolute inset-0 animate-pulse-slow opacity-70 bg-[#FFF94D]"></span>
+                        <span className="absolute top-0 left-0 h-[500%] w-[200%] -translate-x-[50%] -translate-y-[25%] animate-spin-slow opacity-60 bg-[radial-gradient(ellipse_at_center,_rgba(255,249,77,0.8)_0%,_transparent_60%)]"></span>
+                        <span className="absolute inset-0 animate-glow-slow bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.8)_0%,_transparent_50%)]"></span>
+                      </span>
+                    )}
+                  </Button>
+                </motion.div>
+              </motion.form>
+            )}
+
+            <motion.div className="mt-6 border-t border-white/10 pt-6" variants={itemVariants}>
+              <p className="text-white/70 mb-3">Prefer to email directly?</p>
+              <a
+                href="mailto:hi@charliefox.dev"
+                className="text-[#FFF94D] font-medium flex items-center gap-2 hover:underline transition-all"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                hi@charliefox.dev
+              </a>
+            </motion.div>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </div>
   )
 }
