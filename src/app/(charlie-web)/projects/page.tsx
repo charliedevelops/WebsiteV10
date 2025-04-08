@@ -1,7 +1,7 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import ClientProjects from './page.client'
-// Remove static revalidate value since we're using on-demand revalidation
+import { Suspense } from 'react'
 
 async function fetchProjects() {
   try {
@@ -57,7 +57,13 @@ export default async function ProjectsPage() {
       <div className="absolute top-0 left-0 right-0 h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.1),transparent_70%)] z-0"></div>
 
       <div className="relative z-10">
-        <ClientProjects projects={projects} />
+        <Suspense fallback={
+          <div className="flex items-center justify-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          </div>
+        }>
+          <ClientProjects projects={projects} />
+        </Suspense>
       </div>
     </div>
   )
