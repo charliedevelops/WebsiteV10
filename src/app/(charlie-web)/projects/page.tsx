@@ -41,12 +41,23 @@ export default async function ProjectsPage() {
   const projects = await fetchProjects()
 
   if (!projects || projects.length === 0) {
-    return <div>No projects found</div>
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-[#0A090C] to-black text-white">
+        <div className="text-center p-8">
+          <h2 className="text-2xl font-semibold mb-4">No projects found</h2>
+          <p className="text-gray-400">Check back later for new projects</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 ">
-      <ClientProjects projects={projects} />
+    <div className="min-h-screen bg-gradient-to-b from-[#0A090C] to-black text-white pt-8">
+      <div className="absolute top-0 left-0 right-0 h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.1),transparent_70%)] z-0"></div>
+
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <ClientProjects projects={projects} />
+      </div>
     </div>
   )
 }

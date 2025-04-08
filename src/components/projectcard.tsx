@@ -23,35 +23,52 @@ const Card: React.FC<CardProps> = ({ project }) => {
     switch (tag?.toLowerCase()) {
       case 'dev':
       case 'web':
-        return 'text-[#4BC0FF]'
+        return 'bg-[#4BC0FF]/10 text-[#4BC0FF] border-[#4BC0FF]/30'
       case 'fx':
-        return 'text-[#FF2800]'
+        return 'bg-[#FF2800]/10 text-[#FF2800] border-[#FF2800]/30'
       case 'design':
-        return 'text-[#90FF94]'
+        return 'bg-[#90FF94]/10 text-[#90FF94] border-[#90FF94]/30'
       default:
-        return 'text-white/60'
+        return 'bg-white/5 text-white/60 border-white/20'
     }
   }
 
   return (
-    <div className="w-full h-[400px] card p-5 bg-[#1D1D1D]/40 rounded-xl transition-all duration-300 hover:scale-105 border border-[#ffffff]/10 hover:border-[#ffffff]/20">
-      <div className="relative h-[250px] overflow-hidden rounded-lg">
+    <div className="w-full h-[400px] card p-5 bg-black/50 backdrop-blur-sm rounded-xl transition-all duration-200 ease-out border border-white/5 hover:border-white/20 hover:shadow-lg hover:shadow-blue-900/5">
+      <div className="relative h-[250px] overflow-hidden rounded-lg group">
         {project.image ? (
-          <Image src={project.image.url} alt={project.ProjectName} fill className="object-cover" />
+          <Image
+            src={project.image.url}
+            alt={project.ProjectName}
+            fill
+            className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+          />
         ) : (
           <Image src={fallbackImage} alt="Placeholder" fill className="object-cover" />
         )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
-      <div className="mt-4 space-y-2">
-        <h3 className="text-xl text-white font-bold tracking-tight">{project.ProjectName}</h3>
-        <p className="text-white/70 text-sm line-clamp-2">{project.description}</p>
+      <div className="mt-4 flex flex-col h-[100px]">
+        <h3 className="text-xl text-white font-semibold tracking-tight mb-1">
+          {project.ProjectName}
+        </h3>
+        <p className="text-white/70 text-sm line-clamp-2 mb-auto">{project.description}</p>
+
         {project.tags && project.tags.length > 0 && (
-          <div className="flex gap-2 mt-1">
-            {project.tags.map((tag, index) => (
-              <span key={index} className={`text-xs font-medium ${getTagColor(tag)}`}>
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {project.tags.slice(0, 3).map((tag, index) => (
+              <span
+                key={index}
+                className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full border ${getTagColor(tag)}`}
+              >
                 {tag}
               </span>
             ))}
+            {project.tags.length > 3 && (
+              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-white/5 text-white/60 border border-white/20">
+                +{project.tags.length - 3}
+              </span>
+            )}
           </div>
         )}
       </div>
