@@ -56,15 +56,23 @@ const ClientProjects: React.FC<ClientProjectsProps> = ({ projects }) => {
 
   return (
     <motion.div
-      className="project-page"
+      className="project-page "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       <Navbar isNav={true} />
 
-      <div className="relative flex flex-row items-center mb-8">
-        <div className="filters flex justify-items-start gap-1 flex-col">
+      <div className="relative mb-8 ">
+        <TextFade
+          direction="down"
+          className="w-full flex justify-center items-center mb-6"
+          staggerChildren={0.5}
+        >
+          <h1 className="text-6xl font-bold text-white italic">Projects</h1>
+        </TextFade>
+
+        <div className="filters flex justify-center gap-6 w-full">
           <button
             onClick={() => handleFilterChange('fx')}
             className="filter-btn text-left rounded transition-all duration-300"
@@ -72,7 +80,6 @@ const ClientProjects: React.FC<ClientProjectsProps> = ({ projects }) => {
             <h2
               className={`text-3xl font-bold ${
                 activeCategory === 'fx' ? 'text-[#FF2800]' : 'text-gray-400'
-              } transition-all duration-500'
               } transition-all duration-500`}
             >
               <span className="italic">Charlie</span>
@@ -92,34 +99,9 @@ const ClientProjects: React.FC<ClientProjectsProps> = ({ projects }) => {
               <span className=""> Dev</span>
             </h2>
           </button>
-          <button
-            onClick={() => handleFilterChange('design')}
-            className="filter-btn text-left rounded transition-all duration-300"
-          >
-            <h2
-              className={`text-3xl font-bold ${
-                activeCategory === 'design' ? 'text-[#90FF94]' : 'text-gray-400'
-              } transition-all duration-500`}
-            >
-              <span className="italic">Charlie</span>
-              <span className=""> Design</span>
-            </h2>
-          </button>
         </div>
-        <TextFade
-          direction="down"
-          className="pt-0 pb-5 flex-col flex justify-center items-center space-y-0 absolute left-1/2 transform -translate-x-1/2"
-          staggerChildren={0.5}
-        >
-          <h1 className="absolute left-1/2 transform -translate-x-1/2 text-6xl font-bold text-white italic">
-            Projects
-          </h1>
-        </TextFade>
-
-        <div className="ml-auto"></div>
       </div>
 
-      {/* Projects Grid */}
       <div className="projects-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <AnimatePresence>
           {filteredProjects.map((project) => (

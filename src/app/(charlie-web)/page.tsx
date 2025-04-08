@@ -4,7 +4,8 @@ import Link from 'next/link'
 import Card from '@/components/projectcard'
 import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from '@/components/navbar'
-
+import { InfiniteSlider } from '@/components/motion-primitives/infinite-slider'
+import Footer from '@/components/Footer'
 export default function Home() {
   interface Project {
     slug: string
@@ -19,7 +20,7 @@ export default function Home() {
       slug: 'checky',
       ProjectName: 'Checky',
       description: 'Simple check-in for businesses',
-      tags: ['Web'],
+      tags: ['Dev'],
       image: {
         url: '/thumbnails/checky.png',
         alt: 'Checky',
@@ -29,7 +30,7 @@ export default function Home() {
       slug: 'charlie-web',
       ProjectName: 'Charlie-Web',
       description: 'My personal website (Version 10)',
-      tags: ['Web'],
+      tags: ['Dev'],
       image: {
         url: '/thumbnails/charlie-web.png',
         alt: 'Checky',
@@ -53,21 +54,22 @@ export default function Home() {
         <div className="flex flex-col gap-4 text-center justify-center items-center w-full">
           <Navbar isNav={false} />
           <div className=" hidden   md:flex lg:flex md:flex-row lg:flex-row sm:flex-row gap-4 sm:gap-8 md:gap-12 lg:gap-16 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white/20">
+            <Link href="/projects?category=dev">
+              <h2 className="hover:text-[#4BC0FF] transition-all duration-300 ease-in-out cursor-pointer">
+                Dev
+              </h2>
+            </Link>
             <Link href="/projects?category=fx">
               <h2 className="hover:text-[#FF2800] transition-all duration-300 ease-in-out cursor-pointer">
                 FX
               </h2>
             </Link>
-            <Link href="/projects?category=dev">
-              <h2 className="hover:text-[#4BC0FF] transition-all duration-300 ease-in-out cursor-pointer">
-                Develop
-              </h2>
-            </Link>
-            <Link href="/projects?category=design">
+
+            {/* <Link href="/projects?category=design">
               <h2 className="hover:text-[#90FF94] transition-all duration-300 ease-in-out cursor-pointer">
                 Design
               </h2>
-            </Link>
+            </Link> */}
             <Link href="/blog">
               <h2 className="hover:text-white transition-all duration-300 ease-in-out cursor-pointer">
                 Blog
@@ -173,6 +175,40 @@ export default function Home() {
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 text-center justify-center items-center w-full">
+          <h2 className="text-2xl sm:text-xl md:text-3xl lg:text-4xl font-semibold text-white/80">
+            Trusted by
+          </h2>
+          <div className="relative w-full max-w-7xl mx-auto overflow-hidden">
+            <div className="absolute left-0 top-0 w-24 h-full z-10 pointer-events-none bg-gradient-to-r from-[#0A090C] to-transparent"></div>
+
+            <InfiniteSlider speedOnHover={20} gap={100} speed={30} className="px-4 sm:px-6">
+              {[
+                { src: '/clients/avt.png', alt: 'AVT' },
+                { src: '/clients/changelab.png', alt: 'ChangeLab' },
+                { src: '/clients/dave.png', alt: 'Dave' },
+                { src: '/clients/toma.png', alt: 'Toma' },
+                { src: '/clients/avt.png', alt: 'AVT' },
+                { src: '/clients/changelab.png', alt: 'ChangeLab' },
+                { src: '/clients/dave.png', alt: 'Dave' },
+                { src: '/clients/toma.png', alt: 'Toma' },
+              ].map((client, index) => (
+                <div key={index} className="flex items-center justify-center">
+                  <div className="h-16 w-44 flex items-center justify-center">
+                    <img
+                      src={client.src}
+                      alt={client.alt}
+                      className="max-h-16 max-w-full brightness-0 invert opacity-70 hover:opacity-100 transition-all duration-300 object-contain"
+                    />
+                  </div>
+                </div>
+              ))}
+            </InfiniteSlider>
+
+            {/* Right fade gradient */}
+            <div className="absolute right-0 top-0 w-24 h-full z-10 pointer-events-none bg-gradient-to-l from-[#0A090C] to-transparent"></div>
           </div>
         </div>
         <div className="flex flex-col gap-4 text-center justify-center items-center w-full">
