@@ -21,34 +21,40 @@ export const Projects: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ doc }) => {
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-        
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
         try {
           // Revalidate the specific project page
-          await fetch(`${siteUrl}/api/revalidate?path=/projects/${doc.slug}&secret=${process.env.REVALIDATION_SECRET}`);
-          
+          await fetch(
+            `${siteUrl}/api/revalidate?path=/projects/${doc.slug}&secret=${process.env.REVALIDATION_SECRET}`,
+          )
+
           // Also revalidate the projects list page
-          await fetch(`${siteUrl}/api/revalidate?path=/projects&secret=${process.env.REVALIDATION_SECRET}`);
-          
-          console.log(`Revalidated project: ${doc.slug}`);
+          await fetch(
+            `${siteUrl}/api/revalidate?path=/projects&secret=${process.env.REVALIDATION_SECRET}`,
+          )
+
+          console.log(`Revalidated project: ${doc.slug}`)
         } catch (error) {
-          console.error('Error revalidating project:', error);
+          console.error('Error revalidating project:', error)
         }
-      }
+      },
     ],
     afterDelete: [
       async ({ doc }) => {
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-        
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
         try {
           // Revalidate the projects list page after deletion
-          await fetch(`${siteUrl}/api/revalidate?path=/projects&secret=${process.env.REVALIDATION_SECRET}`);
-          
-          console.log(`Revalidated projects list after deleting: ${doc.slug}`);
+          await fetch(
+            `${siteUrl}/api/revalidate?path=/projects&secret=${process.env.REVALIDATION_SECRET}`,
+          )
+
+          console.log(`Revalidated projects list after deleting: ${doc.slug}`)
         } catch (error) {
-          console.error('Error revalidating after delete:', error);
+          console.error('Error revalidating after delete:', error)
         }
-      }
+      },
     ],
   },
   fields: [

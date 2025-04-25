@@ -99,29 +99,25 @@ export default function ProjectClient({ post }: ProjectProps) {
       >
         <div className="container mx-auto px-4">
           <motion.div className="max-w-4xl mx-auto text-center" variants={itemVariants}>
-            <motion.div
-              className="mb-6 inline-flex px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm border border-white/10 text-white/70"
-              variants={itemVariants}
-            >
+            <motion.div className="mb-6 inline-flex gap-2" variants={itemVariants}>
               {post.tags?.tags?.map((tag: string, index: number) => (
                 <span
                   key={index}
-                  className={`text-sm ${
-                    tag.toLowerCase() === 'dev'
-                      ? 'text-[#4BC0FF]'
-                      : tag.toLowerCase() === 'fx'
-                        ? 'text-[#FF2800]'
-                        : 'text-white/80'
-                  }`}
+                  className="text-xs font-medium px-3 py-1 rounded-full border border-white/20 bg-black/70 text-white/90 backdrop-blur-sm"
                 >
-                  {tag}
-                  {index < (post.tags?.tags?.length || 0) - 1 ? ' · ' : ''}
+                  {tag.toLowerCase() === 'dev'
+                    ? 'Development'
+                    : tag.toLowerCase() === 'fx'
+                      ? 'Visual FX'
+                      : tag.toLowerCase() === 'design'
+                        ? 'Design'
+                        : tag}
                 </span>
               ))}
             </motion.div>
 
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80 leading-[1.2] pb-1"
               variants={itemVariants}
             >
               {post['Project Name']}

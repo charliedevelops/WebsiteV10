@@ -56,16 +56,29 @@ export default function ClientProjects({ projects }: ClientProjectsProps) {
     setSelectedCategory(category)
   }
 
-  // Define category colors
-  const getCategoryColor = (category: string) => {
+  // Define category colors and display names
+  const getCategoryInfo = (category: string) => {
     switch (category.toLowerCase()) {
       case 'dev':
+        return {
+          color: '#3B82F6', // Modern blue
+          displayName: 'Development',
+        }
       case 'web':
-        return '#4BC0FF'
+        return {
+          color: '#10B981', // Modern green
+          displayName: 'Web',
+        }
       case 'fx':
-        return '#FF2800'
+        return {
+          color: '#F43F5E', // Modern rose
+          displayName: '3D & Visual Effects',
+        }
       default:
-        return '#FFFFFF'
+        return {
+          color: '#FFFFFF',
+          displayName: category.charAt(0).toUpperCase() + category.slice(1),
+        }
     }
   }
 
@@ -84,34 +97,36 @@ export default function ClientProjects({ projects }: ClientProjectsProps) {
               Projects
             </h1>
 
-            <div className="inline-flex flex-wrap justify-center gap-3 mt-8 p-2 bg-black/30 backdrop-blur-md rounded-full border border-white/10">
+            <div className="inline-flex flex-wrap justify-center gap-3 mt-8 p-2 bg-black/40 backdrop-blur-md rounded-full border border-white/10">
               <button
                 onClick={() => handleCategoryClick(null)}
-                className={`px-5 py-2 rounded-full transition-all duration-300 ease-out ${
+                className={`px-6 py-2.5 rounded-full transition-all duration-300 ease-out text-sm font-medium ${
                   selectedCategory === null
                     ? 'bg-white/10 text-white shadow-md shadow-white/5'
-                    : 'text-white/70 hover:text-white'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
                 }`}
               >
-                All
+                All Projects
               </button>
 
               {categories.map((category) => {
-                const color = getCategoryColor(category)
+                const { color, displayName } = getCategoryInfo(category)
                 return (
                   <button
                     key={category}
                     onClick={() => handleCategoryClick(category)}
-                    className={`px-5 py-2 rounded-full transition-all duration-300 ease-out ${
-                      selectedCategory === category ? 'shadow-md' : 'hover:text-white/90'
+                    className={`px-6 py-2.5 rounded-full transition-all duration-300 ease-out text-sm font-medium ${
+                      selectedCategory === category
+                        ? 'shadow-md'
+                        : 'hover:text-white/90 hover:bg-white/5'
                     }`}
                     style={{
-                      backgroundColor: selectedCategory === category ? `${color}15` : 'transparent',
+                      backgroundColor: selectedCategory === category ? `${color}20` : 'transparent',
                       color: selectedCategory === category ? color : 'rgba(255, 255, 255, 0.7)',
-                      boxShadow: selectedCategory === category ? `0 4px 12px ${color}25` : 'none',
+                      boxShadow: selectedCategory === category ? `0 4px 12px ${color}30` : 'none',
                     }}
                   >
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                    {displayName}
                   </button>
                 )
               })}

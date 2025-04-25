@@ -20,7 +20,7 @@ export default function Home() {
     {
       slug: 'checky',
       ProjectName: 'Checky',
-      description: 'Simple check-in for businesses',
+      description: 'Streamline employee registration and check-ins with Checky',
       tags: ['Dev'],
       image: {
         url: '/thumbnails/checky.png',
@@ -28,13 +28,13 @@ export default function Home() {
       },
     },
     {
-      slug: 'charlie-web',
-      ProjectName: 'Charlie-Web',
-      description: 'My personal website (Version 10)',
+      slug: 'ChangeLab-Web',
+      ProjectName: 'ChangeLab',
+      description: 'Website for Gamified Simulations',
       tags: ['Dev'],
       image: {
-        url: '/thumbnails/charlie-web.png',
-        alt: 'Checky',
+        url: '/thumbnails/changeLab-web.png',
+        alt: 'ChangeLab',
       },
     },
     {
@@ -86,21 +86,27 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-6 text-white border border-white/5 lg:col-span-1 lg:col-start-1 lg:row-span-5 lg:row-start-1 md:row-start-1 md:col-start-1 md:row-span-5 hover:border-white/20 hover:shadow-lg hover:shadow-blue-900/10 transition-all duration-300 ease-in-out"
+              className="bg-black/50 backdrop-blur-sm rounded-3xl p-6 text-white border border-white/5 
+                lg:col-span-1 lg:col-start-1 lg:row-span-5 lg:row-start-1 
+                md:row-start-1 md:col-start-1 md:row-span-5 
+                hover:border-white/20 hover:shadow-lg hover:shadow-blue-900/10 
+                transition-all duration-300 ease-in-out"
             >
               <div className="flex flex-col items-center lg:items-start">
-                <div className="flex flex-row items-center gap-5">
-                  <div className="bg-gradient-to-br from-[#FFF94D] to-yellow-400 w-12 sm:w-16 h-12 sm:h-16 rounded-full mb-4 shadow-lg shadow-yellow-500/20"></div>
-                  <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">Charlie Fox</h1>
+                <div className="flex items-center gap-5 mb-4">
+                  <div className="bg-gradient-to-br from-[#FFF94D] to-yellow-400 w-16 h-16 rounded-full shadow-lg" />
+                  <h1 className="text-3xl font-semibold tracking-tight">Charlie Fox</h1>
                 </div>
-                <p className="text-md text-white/80 leading-relaxed mt-3">
-                  I'm a software engineer and 3D artist dedicated to building scalable web
-                  applications and creating visually impactful digital experiences.
-                </p>
-                <p className="mt-4 text-md text-white/80 leading-relaxed">
-                  Over the years, I've worked on a range of projects that have helped me improve my
-                  skills and deepen my expertise across multiple areas.
-                </p>
+                <div className="space-y-4 text-white/80">
+                  <p className="leading-relaxed">
+                    I'm a software engineer focused on building scalable web apps and platforms.
+                    Currently working on tools that help businesses streamline their operations.
+                  </p>
+                  <p className="leading-relaxed">
+                    In my free time, I enjoy listening to music and exploring new technologies as
+                    well as being part of open source projects.
+                  </p>
+                </div>
               </div>
             </motion.div>
 
@@ -165,15 +171,17 @@ export default function Home() {
               className="lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-3 md:col-start-2 md:row-start-6 lg:block sm:hidden h-full"
             >
               <Link
-                href={'/blog/smart-home-automation-with-home-assistant'}
+                href={'/blog/tools-2025'}
                 className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white flex flex-col gap-2 justify-between border border-white/5 h-full hover:border-white/20 hover:shadow-lg hover:shadow-blue-900/10 transition-all duration-300 ease-in-out"
               >
                 <h2 className="text-lg sm:text-xl font-semibold text-[#4BC0FF]">
                   Latest Blog Post
                 </h2>
                 <div className="border border-white/10 rounded-xl p-6 bg-white/5 hover:bg-white/10 transition-all duration-300">
-                  <p className="text-gray-400 text-sm">Jan 17, 2025 &bull; 8 min read</p>
-                  <p className="mt-2 font-medium">Smart Home Automation with Home Assistant</p>
+                  <p className="text-gray-400 text-sm">April 21, 2025 &bull; 8 min read</p>
+                  <p className="mt-2 font-medium">
+                    Productivity tools and software I use on my Mac
+                  </p>
                 </div>
               </Link>
             </motion.div>
@@ -183,23 +191,23 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
               whileHover={{ scale: 1.02 }}
-              className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white flex flex-col gap-4 border border-white/5 lg:col-span-1 lg:col-start-2 lg:row-span-5 lg:row-start-2 md:col-span-1 md:row-start-6 md:row-span-3 hover:border-[#4BC0FF]/30 hover:shadow-lg hover:shadow-[#4BC0FF]/10 transition-all duration-300 ease-in-out"
+              className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white flex flex-col gap-4 border border-white/5 lg:col-span-1 lg:col-start-2 lg:row-span-5 lg:row-start-2 md:col-span-1 md:row-start-6 md:row-span-3 hover:border-[#4BC0FF]/30 hover:shadow-lg hover:shadow-[#4BC0FF]/10 transition-border duration-300 ease-in-out "
             >
-              <Link href={`/projects/checky`} className="h-full">
+              <Link href={`/projects/ChangeLab-Web`} className="h-full">
                 <div className="rounded-3xl h-full flex flex-col">
-                  <div className="overflow-hidden rounded-xl">
+                  <div className="overflow-hidden rounded-xl flex items-center justify-center">
                     <Image
-                      src="/thumbnails/checky.png"
+                      src="/thumbnails/changeLab-web.png"
                       alt="Kitchen"
                       width={400}
                       height={300}
-                      className="rounded-xl hover:scale-105 transition-all duration-500 ease-in-out"
+                      className="rounded-xl hover:scale-105 transition-all duration-500 ease-in-out object-cover w-full h-auto"
                     />
                   </div>
                   <div className="mt-4">
                     <h4 className="text-sm font-semibold text-[#4BC0FF]">FEATURED PROJECT</h4>
-                    <p className="font-medium text-2xl mt-1">Checky</p>
-                    <p className="text-lg text-gray-400 mt-1">Simple check-in for businesses</p>
+                    <p className="font-medium text-2xl mt-1">ChangeLab</p>
+                    <p className="text-lg text-gray-400 mt-1">Website for Gamified Simulations</p>
                   </div>
                 </div>
               </Link>
@@ -210,41 +218,43 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               whileHover={{ scale: 1.02 }}
-              className="flex flex-col justify-center bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white text-center border border-white/5 md:col-span-1 md:row-span-2 lg:row-span-1 lg:col-span-1 lg:row-start-1 lg:col-start-2 hover:border-white/20 hover:shadow-lg transition-all duration-300 ease-in-out"
+              className="flex flex-col justify-center bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white text-center border border-white/5 md:col-span-1 md:row-span-2 lg:row-span-1 lg:col-span-1 lg:row-start-1 lg:col-start-2 hover:border-white/20 hover:shadow-lg transition-border duration-300 ease-in-out"
             >
               <div className="flex flex-row justify-evenly">
-                <Link href="https://www.youtube.com/@Charlie-Design">
-                  <Image
-                    src="/youtube.svg"
-                    alt="YouTube"
-                    width={50}
-                    height={100}
-                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] hover:drop-shadow-[0_0_8px_rgba(255,0,0,0.5)]"
-                  />
-                </Link>
-                <Link href={'https://x.com/charliedesig'}>
-                  <Image
-                    src="/twitter.svg"
-                    alt="Twitter"
-                    width={50}
-                    height={100}
-                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] hover:drop-shadow-[0_0_8px_rgba(29,161,242,0.5)]"
-                  />
-                </Link>
-                <Image
-                  src="/instagram.svg"
-                  alt="Instagram"
-                  width={50}
-                  height={100}
-                  className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] hover:drop-shadow-[0_0_8px_rgba(225,48,108,0.5)]"
-                />
-                <Link href={'https://github.com/charliedesigns'}>
+                <Link href={'https://github.com/charliedevelops'} target="_blank">
                   <Image
                     src="/github.svg"
                     alt="GitHub"
                     width={50}
                     height={100}
-                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] "
+                  />
+                </Link>
+                <Link href={'https://www.linkedin.com/in/charlie-fox-751b64305/'} target="_blank">
+                  <Image
+                    src="/linkedin.svg"
+                    alt="LinkedIn"
+                    width={50}
+                    height={100}
+                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] "
+                  />
+                </Link>
+                <Link href="https://www.youtube.com/@Charlie-Design" target="_blank">
+                  <Image
+                    src="/youtube.svg"
+                    alt="YouTube"
+                    width={50}
+                    height={100}
+                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] "
+                  />
+                </Link>
+                <Link href={'https://bsky.app/profile/charliefox.dev'} target="_blank">
+                  <Image
+                    src="/bluesky.svg"
+                    alt="Bluesky"
+                    width={50}
+                    height={100}
+                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] text-white"
                   />
                 </Link>
               </div>

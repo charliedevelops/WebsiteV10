@@ -97,7 +97,7 @@ const Contact = () => {
             variants={itemVariants}
           >
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/80 mb-6 tracking-tight"
               variants={itemVariants}
             >
               Let&apos;s <span className="text-[#FFF94D]">Connect</span>
