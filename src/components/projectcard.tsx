@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = ({ project }) => {
   }
 
   return (
-    <div className="w-full h-[380px] card p-5 bg-black/50 backdrop-blur-sm rounded-xl transition-all duration-200 ease-out border border-white/5 hover:border-white/20 hover:shadow-lg hover:shadow-blue-900/5">
+    <div className="w-full h-[380px] card p-5 bg-black/50 backdrop-blur-sm rounded-xl transition-transform transition-shadow duration-200 ease-out border border-white/5 hover:shadow-lg hover:shadow-blue-900/5 border-animate-white">
       <div className="relative h-[230px] overflow-hidden rounded-lg group">
         {project.image ? (
           <Image

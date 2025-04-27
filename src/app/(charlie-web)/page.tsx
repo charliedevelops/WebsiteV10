@@ -53,6 +53,73 @@ export default function Home() {
     <div className="min-h-screen p-4 sm:px-28 md:p-8 lg:p-10 font-[family-name:var(--font-inter)] bg-gradient-to-b from-[#0A090C] to-black text-white">
       <div className="absolute top-0 left-0 right-0 h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.1),transparent_70%)] z-0"></div>
 
+      <style jsx global>{`
+        @keyframes borderFadeIn {
+          0% {
+            border-color: rgba(255, 255, 255, 0.05);
+          }
+          100% {
+            border-color: rgba(255, 255, 255, 0.2);
+          }
+        }
+
+        @keyframes borderFadeOut {
+          0% {
+            border-color: rgba(255, 255, 255, 0.2);
+          }
+          100% {
+            border-color: rgba(255, 255, 255, 0.05);
+          }
+        }
+
+        @keyframes borderFadeInBlue {
+          0% {
+            border-color: rgba(75, 192, 255, 0);
+          }
+          100% {
+            border-color: rgba(75, 192, 255, 0.3);
+          }
+        }
+
+        @keyframes borderFadeInYellow {
+          0% {
+            border-color: rgba(255, 249, 77, 0);
+          }
+          100% {
+            border-color: rgba(255, 249, 77, 0.5);
+          }
+        }
+
+        @keyframes borderFadeInRed {
+          0% {
+            border-color: rgba(255, 40, 0, 0);
+          }
+          100% {
+            border-color: rgba(255, 40, 0, 0.3);
+          }
+        }
+
+        .border-animate-white:hover {
+          animation: borderFadeIn 0.6s forwards ease;
+        }
+
+        .border-animate-white:not(:hover) {
+          animation: borderFadeOut 0.6s forwards ease;
+        }
+
+        .border-animate-blue:hover {
+          animation: borderFadeInBlue 0.6s forwards ease;
+        }
+
+        .border-animate-yellow:hover {
+          animation: borderFadeInYellow 0.6s forwards ease;
+        }
+
+        .border-animate-red:hover {
+          animation: borderFadeInRed 0.6s forwards ease;
+        }
+      `}</style>
+
       <main className="flex flex-col gap-6 md:gap-8 items-center justify-center dark:[color-scheme:light_dark] relative z-10">
         <div className="flex flex-col gap-4 text-center justify-center items-center w-full">
           <Navbar isNav={false} />
@@ -89,8 +156,8 @@ export default function Home() {
               className="bg-black/50 backdrop-blur-sm rounded-3xl p-6 text-white border border-white/5 
                 lg:col-span-1 lg:col-start-1 lg:row-span-5 lg:row-start-1 
                 md:row-start-1 md:col-start-1 md:row-span-5 
-                hover:border-white/20 hover:shadow-lg hover:shadow-blue-900/10 
-                transition-all duration-300 ease-in-out"
+                hover:shadow-lg hover:shadow-blue-900/10 
+                transition-shadow duration-300 ease-in-out border-animate-white"
             >
               <div className="flex flex-col items-center lg:items-start">
                 <div className="flex items-center gap-5 mb-4">
@@ -119,10 +186,10 @@ export default function Home() {
             >
               <Link
                 href={'/contact'}
-                className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 text-white border border-white/5 flex items-center justify-center h-full hover:border-[#FFF94D]/50 hover:shadow-lg hover:shadow-[#FFF94D]/10 transition-all duration-300 ease-in-out group"
+                className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 text-white border border-white/5 flex items-center justify-center h-full hover:shadow-lg hover:shadow-[#FFF94D]/10 transition-shadow duration-300 ease-in-out group border-animate-yellow"
               >
                 <div className="rounded-3xl p-4 text-white flex items-center justify-center w-full h-full">
-                  <p className="text-lg sm:text-xl font-medium group-hover:text-[#FFF94D] transition-all duration-300">
+                  <p className="text-lg sm:text-xl font-medium group-hover:text-[#FFF94D] transition-colors duration-300">
                     Contact me
                   </p>
                 </div>
@@ -140,9 +207,9 @@ export default function Home() {
                 href={'https://www.youtube.com/watch?v=hpsKNMoY4TI'}
                 className="h-full block group"
               >
-                <div className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 h-full text-white border border-white/5 hover:border-red-500/30 hover:shadow-lg hover:shadow-red-900/20 transition-all duration-300 ease-in-out bg-[url('/thumbnails/showreel.png')] bg-cover bg-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-                  <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-2">
+                <div className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 h-full text-white border border-white/5 hover:shadow-lg hover:shadow-red-900/20 transition-shadow duration-300 ease-in-out bg-[url('/thumbnails/showreel.png')] bg-cover bg-center relative overflow-hidden border-animate-red">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2">
                     <div className="bg-red-600 rounded-full w-8 h-8 flex items-center justify-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -172,7 +239,7 @@ export default function Home() {
             >
               <Link
                 href={'/blog/tools-2025'}
-                className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white flex flex-col gap-2 justify-between border border-white/5 h-full hover:border-white/20 hover:shadow-lg hover:shadow-blue-900/10 transition-all duration-300 ease-in-out"
+                className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white flex flex-col gap-2 justify-between border border-white/5 h-full hover:shadow-lg hover:shadow-blue-900/10 transition-shadow duration-300 ease-in-out border-animate-white"
               >
                 <h2 className="text-lg sm:text-xl font-semibold text-[#4BC0FF]">
                   Latest Blog Post
@@ -191,7 +258,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
               whileHover={{ scale: 1.02 }}
-              className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white flex flex-col gap-4 border border-white/5 lg:col-span-1 lg:col-start-2 lg:row-span-5 lg:row-start-2 md:col-span-1 md:row-start-6 md:row-span-3 hover:border-[#4BC0FF]/30 hover:shadow-lg hover:shadow-[#4BC0FF]/10 transition-border duration-300 ease-in-out "
+              className="bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white flex flex-col gap-4 border border-white/5 lg:col-span-1 lg:col-start-2 lg:row-span-5 lg:row-start-2 md:col-span-1 md:row-start-6 md:row-span-3 hover:shadow-lg hover:shadow-[#4BC0FF]/10 transition-shadow duration-300 ease-in-out border-animate-blue"
             >
               <Link href={`/projects/ChangeLab-Web`} className="h-full">
                 <div className="rounded-3xl h-full flex flex-col">
@@ -201,7 +268,7 @@ export default function Home() {
                       alt="Kitchen"
                       width={400}
                       height={300}
-                      className="rounded-xl hover:scale-105 transition-all duration-500 ease-in-out object-cover w-full h-auto"
+                      className="rounded-xl hover:scale-105 transition-transform duration-500 ease-in-out object-cover w-full h-auto"
                     />
                   </div>
                   <div className="mt-4">
@@ -218,7 +285,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               whileHover={{ scale: 1.02 }}
-              className="flex flex-col justify-center bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white text-center border border-white/5 md:col-span-1 md:row-span-2 lg:row-span-1 lg:col-span-1 lg:row-start-1 lg:col-start-2 hover:border-white/20 hover:shadow-lg transition-border duration-300 ease-in-out"
+              className="flex flex-col justify-center bg-black/50 backdrop-blur-sm rounded-3xl p-4 sm:p-4 text-white text-center border border-white/5 md:col-span-1 md:row-span-2 lg:row-span-1 lg:col-span-1 lg:row-start-1 lg:col-start-2 hover:shadow-lg transition-shadow duration-300 ease-in-out border-animate-white"
             >
               <div className="flex flex-row justify-evenly">
                 <Link href={'https://github.com/charliedevelops'} target="_blank">
@@ -227,7 +294,7 @@ export default function Home() {
                     alt="GitHub"
                     width={50}
                     height={100}
-                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] "
+                    className="hover:scale-110 transition-transform duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] "
                   />
                 </Link>
                 <Link href={'https://www.linkedin.com/in/charlie-fox-751b64305/'} target="_blank">
@@ -236,7 +303,7 @@ export default function Home() {
                     alt="LinkedIn"
                     width={50}
                     height={100}
-                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] "
+                    className="hover:scale-110 transition-transform duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] "
                   />
                 </Link>
                 <Link href="https://www.youtube.com/@Charlie-Design" target="_blank">
@@ -245,7 +312,7 @@ export default function Home() {
                     alt="YouTube"
                     width={50}
                     height={100}
-                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] "
+                    className="hover:scale-110 transition-transform duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] "
                   />
                 </Link>
                 <Link href={'https://bsky.app/profile/charliefox.dev'} target="_blank">
@@ -254,7 +321,7 @@ export default function Home() {
                     alt="Bluesky"
                     width={50}
                     height={100}
-                    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] text-white"
+                    className="hover:scale-110 transition-transform duration-300 ease-in-out cursor-pointer filter hover:brightness-100 brightness-[.4] text-white"
                   />
                 </Link>
               </div>
@@ -290,7 +357,7 @@ export default function Home() {
                     <img
                       src={client.src}
                       alt={client.alt}
-                      className="max-h-16 max-w-full brightness-0 invert opacity-50 hover:opacity-90 transition-all duration-300 object-contain hover:scale-105"
+                      className="max-h-16 max-w-full brightness-0 invert opacity-50 hover:opacity-90 hover:scale-105 transition-opacity transition-transform duration-300 object-contain"
                     />
                   </div>
                 </div>
