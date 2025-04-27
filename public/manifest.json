@@ -1,0 +1,21 @@
+{
+  "name": "Charlie Fox - Software Engineer & 3D Artist",
+  "short_name": "Charlie Fox",
+  "description": "Charlie Fox is a software engineer, 3D artist and modelmaker dedicated to building scalable web applications.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A090C",
+  "theme_color": "#EBFF70",
+  "icons": [
+    {
+      "src": "/metadata.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/metadata.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
