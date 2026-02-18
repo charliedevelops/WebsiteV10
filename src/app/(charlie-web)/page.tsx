@@ -109,10 +109,18 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="card-surface rounded-3xl p-6 text-white
+              className="relative card-surface rounded-3xl p-6 text-white
                 lg:col-span-1 lg:col-start-1 lg:row-span-5 lg:row-start-1
                 md:row-start-1 md:col-start-1 md:row-span-5"
             >
+              <GlowingEffect
+                spread={40}
+                glow={true}
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+                borderWidth={2}
+              />
               <div className="flex flex-col items-center lg:items-start">
                 <div className="flex items-center gap-5 mb-4">
                   <div
