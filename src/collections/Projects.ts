@@ -18,6 +18,12 @@ export const Projects: CollectionConfig = {
   access: {
     read: () => true,
   },
+  admin: {
+    useAsTitle: 'Project Name',
+  },
+  versions: {
+    drafts: true,
+  },
   hooks: {
     afterChange: [
       async ({ doc }) => {
@@ -198,6 +204,7 @@ export const Projects: CollectionConfig = {
                 { label: 'FX', value: 'fx' },
                 { label: 'Dev', value: 'dev' },
                 { label: 'Design', value: 'design' },
+                { label: 'Archived', value: 'archived' },
               ],
               hasMany: true,
             },

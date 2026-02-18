@@ -52,7 +52,11 @@ export default function ClientProjects({ projects }: ClientProjectsProps) {
         ),
       )
     } else {
-      setFilteredProjects(projects)
+      setFilteredProjects(
+        projects.filter(
+          (project) => !project.tags.some((tag) => tag.toLowerCase() === 'archived'),
+        ),
+      )
     }
   }, [selectedCategory, projects])
 

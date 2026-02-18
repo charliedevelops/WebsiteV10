@@ -19,6 +19,12 @@ export const Blog: CollectionConfig = {
   access: {
     read: () => true,
   },
+  admin: {
+    useAsTitle: 'title',
+  },
+  versions: {
+    drafts: true,
+  },
   hooks: {
     afterChange: [
       async ({ doc }) => {
