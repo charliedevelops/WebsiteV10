@@ -113,11 +113,11 @@ export default function BlogPostClient({ post, stats, formattedDate }: PostProps
           </motion.div>
 
           <motion.div
-            className="bg-black/30 backdrop-blur-sm rounded-2xl border border-white/5 shadow-lg p-6 sm:p-10"
+            className="bg-black/30 backdrop-blur-sm rounded-2xl border border-white/5 shadow-lg p-5 sm:p-8"
             variants={itemVariants}
           >
-            <div className="prose prose-sm sm:prose-base md:prose-lg prose-invert max-w-none leading-relaxed blog-content">
-              <RichText data={post.content} />
+            <div className="max-w-none blog-content">
+              <RichText data={post.content} enableProse={false} enableGutter={false} />
             </div>
           </motion.div>
 

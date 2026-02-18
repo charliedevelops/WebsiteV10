@@ -4,6 +4,7 @@ import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import { notFound } from 'next/navigation'
 import ProjectClient from './page.client'
+import '../../blog/[slug]/blog-styles.css'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })

@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import ContactAnimations from '@/components/contact-animations'
+import AuroraBlur from '@/components/react-bits/aurora-blur'
+import StaggeredText from '@/components/react-bits/staggered-text'
 
 const Contact = () => {
   const [email, setEmail] = useState('')
@@ -81,7 +83,20 @@ const Contact = () => {
       id="contact"
       className="flex flex-col items-center w-full min-h-screen bg-gradient-to-b from-[#0A090C] to-black text-white"
     >
-      <div className="absolute top-0 left-0 right-0 h-[500px] bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.1),transparent_70%)] z-0"></div>
+      <div
+        className="absolute top-0 left-0 right-0 h-[800px] z-0 overflow-hidden"
+        style={{ maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)' }}
+      >
+        <AuroraBlur
+          speed={0.5}
+          brightness={0.7}
+          saturation={0.8}
+          opacity={0.35}
+          bloomIntensity={1.5}
+          width="100%"
+          height="800px"
+        />
+      </div>
       <ContactAnimations />
 
       <div className="relative z-10 w-full">
@@ -96,12 +111,18 @@ const Contact = () => {
             className="p-8 w-full max-w-2xl flex flex-col gap-6 backdrop-blur-sm bg-black/20 rounded-2xl border border-white/10 shadow-lg"
             variants={itemVariants}
           >
-            <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/80 mb-6 tracking-tight"
-              variants={itemVariants}
-            >
-              Let&apos;s <span className="text-[#FFF94D]">Connect</span>
-            </motion.h1>
+            <div className="mb-6">
+              <StaggeredText
+                text="Let's Connect"
+                as="h1"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white/80 tracking-tight"
+                segmentBy="words"
+                delay={60}
+                duration={0.5}
+                direction="top"
+                blur={true}
+              />
+            </div>
 
             {submitStatus.success ? (
               <motion.div

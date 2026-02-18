@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
 import Navbar from '@/components/navbar'
+import StaggeredText from '@/components/react-bits/staggered-text'
 
 interface Project {
   slug: string
@@ -29,16 +30,19 @@ export default function ClientProjects({ projects }: ClientProjectsProps) {
 
   const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects)
 
-  // Get unique categories from projects, removing 'design'
-  const categories = Array.from(
-    new Set(
-      projects.flatMap((project) =>
-        project.tags
-          .map((tag) => tag.toLowerCase())
-          .filter((tag) => tag.toLowerCase() !== 'design'),
-      ),
+  const categoryOrder = ['dev', 'fx', 'archived']
+  const projectTags = new Set(
+    projects.flatMap((project) =>
+      project.tags
+        .map((tag) => tag.toLowerCase())
+        .filter((tag) => tag.toLowerCase() !== 'design'),
     ),
   )
+  const categories = Array.from(new Set([...projectTags, ...categoryOrder])).sort((a, b) => {
+    const ai = categoryOrder.indexOf(a)
+    const bi = categoryOrder.indexOf(b)
+    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi)
+  })
 
   useEffect(() => {
     if (selectedCategory) {
@@ -52,129 +56,110 @@ export default function ClientProjects({ projects }: ClientProjectsProps) {
     }
   }, [selectedCategory, projects])
 
-  const handleCategoryClick = (category: string | null) => {
-    setSelectedCategory(category)
-  }
-
-  // Define category colors and display names
   const getCategoryInfo = (category: string) => {
     switch (category.toLowerCase()) {
       case 'dev':
-        return {
-          color: '#3B82F6', // Modern blue
-          displayName: 'Development',
-        }
+        return { color: '#3B82F6', displayName: 'Dev' }
       case 'web':
-        return {
-          color: '#10B981', // Modern green
-          displayName: 'Web',
-        }
+        return { color: '#10B981', displayName: 'Web' }
       case 'fx':
-        return {
-          color: '#F43F5E', // Modern rose
-          displayName: '3D & Visual Effects',
-        }
+        return { color: '#F43F5E', displayName: '3D & VFX' }
+      case 'archived':
+        return { color: '#FFFFFF', displayName: 'Archived' }
       default:
-        return {
-          color: '#FFFFFF',
-          displayName: category.charAt(0).toUpperCase() + category.slice(1),
-        }
+        return { color: '#FFFFFF', displayName: category.charAt(0).toUpperCase() + category.slice(1) }
     }
   }
 
   return (
     <>
       <Navbar isNav={true} />
-      <div className="container mx-auto px-4">
-        <div className="pt-12 pb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-8"
-          >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 tracking-tight">
-              Projects
-            </h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 pb-6"
+        >
+          <StaggeredText
+            text="Projects"
+            as="h1"
+            className="text-3xl sm:text-4xl font-bold tracking-tight text-white"
+            segmentBy="chars"
+            delay={60}
+            duration={0.5}
+            direction="top"
+            blur={true}
+          />
 
-            <div className="inline-flex flex-wrap justify-center gap-3 mt-8 p-2 bg-black/40 backdrop-blur-md rounded-full border border-white/10">
-              <button
-                onClick={() => handleCategoryClick(null)}
-                className={`px-6 py-2.5 rounded-full transition-all duration-300 ease-out text-sm font-medium ${
-                  selectedCategory === null
-                    ? 'bg-white/10 text-white shadow-md shadow-white/5'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                All Projects
-              </button>
-
-              {categories.map((category) => {
-                const { color, displayName } = getCategoryInfo(category)
+          <div className="flex flex-wrap gap-0.5 p-1 bg-white/[0.03] rounded-full border border-white/[0.06]">
+            {[{ key: null, label: 'All' as React.ReactNode }, ...categories.map((c) => ({
+              key: c,
+              label: c === 'archived' ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
+              ) as React.ReactNode : getCategoryInfo(c).displayName as React.ReactNode,
+            }))].map(
+              (tab) => {
+                const isActive = selectedCategory === tab.key
                 return (
                   <button
-                    key={category}
-                    onClick={() => handleCategoryClick(category)}
-                    className={`px-6 py-2.5 rounded-full transition-all duration-300 ease-out text-sm font-medium ${
-                      selectedCategory === category
-                        ? 'shadow-md'
-                        : 'hover:text-white/90 hover:bg-white/5'
-                    }`}
+                    key={tab.key ?? 'all'}
+                    onClick={() => setSelectedCategory(tab.key)}
+                    className="relative px-4 py-1.5 rounded-full text-[13px] font-medium transition-colors duration-200 z-10"
                     style={{
-                      backgroundColor: selectedCategory === category ? `${color}20` : 'transparent',
-                      color: selectedCategory === category ? color : 'rgba(255, 255, 255, 0.7)',
-                      boxShadow: selectedCategory === category ? `0 4px 12px ${color}30` : 'none',
+                      color: isActive
+                        ? '#fff'
+                        : 'rgba(255,255,255,0.4)',
                     }}
                   >
-                    {displayName}
+                    {isActive && (
+                      <motion.span
+                        layoutId="tab-pill"
+                        className="absolute inset-0 rounded-full bg-white/[0.08]"
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{tab.label}</span>
                   </button>
                 )
-              })}
-            </div>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
-            <AnimatePresence mode="sync">
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.slug}
-                  layout
-                  layoutId={project.slug}
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: 1,
-                    transition: {
-                      opacity: { duration: 0.4 },
-                      layout: { duration: 0.4, type: 'spring', stiffness: 150, damping: 20 },
-                    },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    transition: {
-                      opacity: { duration: 0.3 },
-                    },
-                  }}
-                >
-                  <Link href={`/projects/${project.slug}`}>
-                    <Card project={project} />
-                  </Link>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-
-            {filteredProjects.length === 0 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="col-span-full text-center py-16"
-              >
-                <h3 className="text-2xl font-semibold text-white/80">
-                  No projects in this category
-                </h3>
-                <p className="text-white/60 mt-2">Try selecting a different category</p>
-              </motion.div>
+              },
             )}
           </div>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pb-12">
+          <AnimatePresence mode="sync">
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.slug}
+                layout
+                layoutId={project.slug}
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  transition: {
+                    opacity: { duration: 0.3 },
+                    layout: { duration: 0.35, type: 'spring', stiffness: 200, damping: 25 },
+                  },
+                }}
+                exit={{ opacity: 0, transition: { duration: 0.2 } }}
+              >
+                <Link href={`/projects/${project.slug}`}>
+                  <Card project={project} />
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+
+          {filteredProjects.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="col-span-full text-center py-20"
+            >
+              <p className="text-white/40 text-lg">No projects in this category</p>
+            </motion.div>
+          )}
         </div>
       </div>
     </>
