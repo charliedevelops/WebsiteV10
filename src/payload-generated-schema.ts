@@ -6,17 +6,18 @@
  * and re-run `payload generate:db-schema` to regenerate this file.
  */
 
+import type {} from '@payloadcms/db-postgres'
 import {
   pgTable,
   index,
   uniqueIndex,
   foreignKey,
-  serial,
-  timestamp,
+  integer,
   varchar,
+  timestamp,
+  serial,
   numeric,
   jsonb,
-  integer,
   pgEnum,
 } from '@payloadcms/db-postgres/drizzle/pg-core'
 import { sql, relations } from '@payloadcms/db-postgres/drizzle'
@@ -44,6 +45,30 @@ export const enum_projects_tech_stack_technologies = pgEnum(
 )
 export const enum_projects_tags_tags = pgEnum('enum_projects_tags_tags', ['fx', 'dev', 'design'])
 
+export const users_sessions = pgTable(
+  'users_sessions',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 }),
+    expiresAt: timestamp('expires_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }).notNull(),
+  },
+  (columns) => [
+    index('users_sessions_order_idx').on(columns._order),
+    index('users_sessions_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [users.id],
+      name: 'users_sessions_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
 export const users = pgTable(
   'users',
   {
@@ -63,14 +88,14 @@ export const users = pgTable(
     }),
     salt: varchar('salt'),
     hash: varchar('hash'),
-    loginAttempts: numeric('login_attempts').default('0'),
+    loginAttempts: numeric('login_attempts', { mode: 'number' }).default(0),
     lockUntil: timestamp('lock_until', { mode: 'string', withTimezone: true, precision: 3 }),
   },
-  (columns) => ({
-    users_updated_at_idx: index('users_updated_at_idx').on(columns.updatedAt),
-    users_created_at_idx: index('users_created_at_idx').on(columns.createdAt),
-    users_email_idx: uniqueIndex('users_email_idx').on(columns.email),
-  }),
+  (columns) => [
+    index('users_updated_at_idx').on(columns.updatedAt),
+    index('users_created_at_idx').on(columns.createdAt),
+    uniqueIndex('users_email_idx').on(columns.email),
+  ],
 )
 
 export const media = pgTable(
@@ -89,17 +114,17 @@ export const media = pgTable(
     thumbnailURL: varchar('thumbnail_u_r_l'),
     filename: varchar('filename'),
     mimeType: varchar('mime_type'),
-    filesize: numeric('filesize'),
-    width: numeric('width'),
-    height: numeric('height'),
-    focalX: numeric('focal_x'),
-    focalY: numeric('focal_y'),
+    filesize: numeric('filesize', { mode: 'number' }),
+    width: numeric('width', { mode: 'number' }),
+    height: numeric('height', { mode: 'number' }),
+    focalX: numeric('focal_x', { mode: 'number' }),
+    focalY: numeric('focal_y', { mode: 'number' }),
   },
-  (columns) => ({
-    media_updated_at_idx: index('media_updated_at_idx').on(columns.updatedAt),
-    media_created_at_idx: index('media_created_at_idx').on(columns.createdAt),
-    media_filename_idx: uniqueIndex('media_filename_idx').on(columns.filename),
-  }),
+  (columns) => [
+    index('media_updated_at_idx').on(columns.updatedAt),
+    index('media_created_at_idx').on(columns.createdAt),
+    uniqueIndex('media_filename_idx').on(columns.filename),
+  ],
 )
 
 export const blog = pgTable(
@@ -122,12 +147,12 @@ export const blog = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (columns) => ({
-    blog_slug_idx: uniqueIndex('blog_slug_idx').on(columns.slug),
-    blog_hero_image_idx: index('blog_hero_image_idx').on(columns.heroImage),
-    blog_updated_at_idx: index('blog_updated_at_idx').on(columns.updatedAt),
-    blog_created_at_idx: index('blog_created_at_idx').on(columns.createdAt),
-  }),
+  (columns) => [
+    uniqueIndex('blog_slug_idx').on(columns.slug),
+    index('blog_hero_image_idx').on(columns.heroImage),
+    index('blog_updated_at_idx').on(columns.updatedAt),
+    index('blog_created_at_idx').on(columns.createdAt),
+  ],
 )
 
 export const projects_tech_stack_technologies = pgTable(
@@ -138,15 +163,15 @@ export const projects_tech_stack_technologies = pgTable(
     value: enum_projects_tech_stack_technologies('value'),
     id: serial('id').primaryKey(),
   },
-  (columns) => ({
-    orderIdx: index('projects_tech_stack_technologies_order_idx').on(columns.order),
-    parentIdx: index('projects_tech_stack_technologies_parent_idx').on(columns.parent),
-    parentFk: foreignKey({
+  (columns) => [
+    index('projects_tech_stack_technologies_order_idx').on(columns.order),
+    index('projects_tech_stack_technologies_parent_idx').on(columns.parent),
+    foreignKey({
       columns: [columns['parent']],
       foreignColumns: [projects.id],
       name: 'projects_tech_stack_technologies_parent_fk',
     }).onDelete('cascade'),
-  }),
+  ],
 )
 
 export const projects_tags_tags = pgTable(
@@ -157,15 +182,15 @@ export const projects_tags_tags = pgTable(
     value: enum_projects_tags_tags('value'),
     id: serial('id').primaryKey(),
   },
-  (columns) => ({
-    orderIdx: index('projects_tags_tags_order_idx').on(columns.order),
-    parentIdx: index('projects_tags_tags_parent_idx').on(columns.parent),
-    parentFk: foreignKey({
+  (columns) => [
+    index('projects_tags_tags_order_idx').on(columns.order),
+    index('projects_tags_tags_parent_idx').on(columns.parent),
+    foreignKey({
       columns: [columns['parent']],
       foreignColumns: [projects.id],
       name: 'projects_tags_tags_parent_fk',
     }).onDelete('cascade'),
-  }),
+  ],
 )
 
 export const projects = pgTable(
@@ -189,12 +214,22 @@ export const projects = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (columns) => ({
-    projects_header_image_idx: index('projects_header_image_idx').on(columns['Header Image']),
-    projects_slug_idx: uniqueIndex('projects_slug_idx').on(columns.slug),
-    projects_updated_at_idx: index('projects_updated_at_idx').on(columns.updatedAt),
-    projects_created_at_idx: index('projects_created_at_idx').on(columns.createdAt),
-  }),
+  (columns) => [
+    index('projects_header_image_idx').on(columns['Header Image']),
+    uniqueIndex('projects_slug_idx').on(columns.slug),
+    index('projects_updated_at_idx').on(columns.updatedAt),
+    index('projects_created_at_idx').on(columns.createdAt),
+  ],
+)
+
+export const payload_kv = pgTable(
+  'payload_kv',
+  {
+    id: serial('id').primaryKey(),
+    key: varchar('key').notNull(),
+    data: jsonb('data').notNull(),
+  },
+  (columns) => [uniqueIndex('payload_kv_key_idx').on(columns.key)],
 )
 
 export const payload_locked_documents = pgTable(
@@ -209,17 +244,11 @@ export const payload_locked_documents = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (columns) => ({
-    payload_locked_documents_global_slug_idx: index('payload_locked_documents_global_slug_idx').on(
-      columns.globalSlug,
-    ),
-    payload_locked_documents_updated_at_idx: index('payload_locked_documents_updated_at_idx').on(
-      columns.updatedAt,
-    ),
-    payload_locked_documents_created_at_idx: index('payload_locked_documents_created_at_idx').on(
-      columns.createdAt,
-    ),
-  }),
+  (columns) => [
+    index('payload_locked_documents_global_slug_idx').on(columns.globalSlug),
+    index('payload_locked_documents_updated_at_idx').on(columns.updatedAt),
+    index('payload_locked_documents_created_at_idx').on(columns.createdAt),
+  ],
 )
 
 export const payload_locked_documents_rels = pgTable(
@@ -234,48 +263,40 @@ export const payload_locked_documents_rels = pgTable(
     blogID: integer('blog_id'),
     projectsID: integer('projects_id'),
   },
-  (columns) => ({
-    order: index('payload_locked_documents_rels_order_idx').on(columns.order),
-    parentIdx: index('payload_locked_documents_rels_parent_idx').on(columns.parent),
-    pathIdx: index('payload_locked_documents_rels_path_idx').on(columns.path),
-    payload_locked_documents_rels_users_id_idx: index(
-      'payload_locked_documents_rels_users_id_idx',
-    ).on(columns.usersID),
-    payload_locked_documents_rels_media_id_idx: index(
-      'payload_locked_documents_rels_media_id_idx',
-    ).on(columns.mediaID),
-    payload_locked_documents_rels_blog_id_idx: index(
-      'payload_locked_documents_rels_blog_id_idx',
-    ).on(columns.blogID),
-    payload_locked_documents_rels_projects_id_idx: index(
-      'payload_locked_documents_rels_projects_id_idx',
-    ).on(columns.projectsID),
-    parentFk: foreignKey({
+  (columns) => [
+    index('payload_locked_documents_rels_order_idx').on(columns.order),
+    index('payload_locked_documents_rels_parent_idx').on(columns.parent),
+    index('payload_locked_documents_rels_path_idx').on(columns.path),
+    index('payload_locked_documents_rels_users_id_idx').on(columns.usersID),
+    index('payload_locked_documents_rels_media_id_idx').on(columns.mediaID),
+    index('payload_locked_documents_rels_blog_id_idx').on(columns.blogID),
+    index('payload_locked_documents_rels_projects_id_idx').on(columns.projectsID),
+    foreignKey({
       columns: [columns['parent']],
       foreignColumns: [payload_locked_documents.id],
       name: 'payload_locked_documents_rels_parent_fk',
     }).onDelete('cascade'),
-    usersIdFk: foreignKey({
+    foreignKey({
       columns: [columns['usersID']],
       foreignColumns: [users.id],
       name: 'payload_locked_documents_rels_users_fk',
     }).onDelete('cascade'),
-    mediaIdFk: foreignKey({
+    foreignKey({
       columns: [columns['mediaID']],
       foreignColumns: [media.id],
       name: 'payload_locked_documents_rels_media_fk',
     }).onDelete('cascade'),
-    blogIdFk: foreignKey({
+    foreignKey({
       columns: [columns['blogID']],
       foreignColumns: [blog.id],
       name: 'payload_locked_documents_rels_blog_fk',
     }).onDelete('cascade'),
-    projectsIdFk: foreignKey({
+    foreignKey({
       columns: [columns['projectsID']],
       foreignColumns: [projects.id],
       name: 'payload_locked_documents_rels_projects_fk',
     }).onDelete('cascade'),
-  }),
+  ],
 )
 
 export const payload_preferences = pgTable(
@@ -291,15 +312,11 @@ export const payload_preferences = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (columns) => ({
-    payload_preferences_key_idx: index('payload_preferences_key_idx').on(columns.key),
-    payload_preferences_updated_at_idx: index('payload_preferences_updated_at_idx').on(
-      columns.updatedAt,
-    ),
-    payload_preferences_created_at_idx: index('payload_preferences_created_at_idx').on(
-      columns.createdAt,
-    ),
-  }),
+  (columns) => [
+    index('payload_preferences_key_idx').on(columns.key),
+    index('payload_preferences_updated_at_idx').on(columns.updatedAt),
+    index('payload_preferences_created_at_idx').on(columns.createdAt),
+  ],
 )
 
 export const payload_preferences_rels = pgTable(
@@ -311,24 +328,22 @@ export const payload_preferences_rels = pgTable(
     path: varchar('path').notNull(),
     usersID: integer('users_id'),
   },
-  (columns) => ({
-    order: index('payload_preferences_rels_order_idx').on(columns.order),
-    parentIdx: index('payload_preferences_rels_parent_idx').on(columns.parent),
-    pathIdx: index('payload_preferences_rels_path_idx').on(columns.path),
-    payload_preferences_rels_users_id_idx: index('payload_preferences_rels_users_id_idx').on(
-      columns.usersID,
-    ),
-    parentFk: foreignKey({
+  (columns) => [
+    index('payload_preferences_rels_order_idx').on(columns.order),
+    index('payload_preferences_rels_parent_idx').on(columns.parent),
+    index('payload_preferences_rels_path_idx').on(columns.path),
+    index('payload_preferences_rels_users_id_idx').on(columns.usersID),
+    foreignKey({
       columns: [columns['parent']],
       foreignColumns: [payload_preferences.id],
       name: 'payload_preferences_rels_parent_fk',
     }).onDelete('cascade'),
-    usersIdFk: foreignKey({
+    foreignKey({
       columns: [columns['usersID']],
       foreignColumns: [users.id],
       name: 'payload_preferences_rels_users_fk',
     }).onDelete('cascade'),
-  }),
+  ],
 )
 
 export const payload_migrations = pgTable(
@@ -336,7 +351,7 @@ export const payload_migrations = pgTable(
   {
     id: serial('id').primaryKey(),
     name: varchar('name'),
-    batch: numeric('batch'),
+    batch: numeric('batch', { mode: 'number' }),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
       .defaultNow()
       .notNull(),
@@ -344,17 +359,24 @@ export const payload_migrations = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (columns) => ({
-    payload_migrations_updated_at_idx: index('payload_migrations_updated_at_idx').on(
-      columns.updatedAt,
-    ),
-    payload_migrations_created_at_idx: index('payload_migrations_created_at_idx').on(
-      columns.createdAt,
-    ),
-  }),
+  (columns) => [
+    index('payload_migrations_updated_at_idx').on(columns.updatedAt),
+    index('payload_migrations_created_at_idx').on(columns.createdAt),
+  ],
 )
 
-export const relations_users = relations(users, () => ({}))
+export const relations_users_sessions = relations(users_sessions, ({ one }) => ({
+  _parentID: one(users, {
+    fields: [users_sessions._parentID],
+    references: [users.id],
+    relationName: 'sessions',
+  }),
+}))
+export const relations_users = relations(users, ({ many }) => ({
+  sessions: many(users_sessions, {
+    relationName: 'sessions',
+  }),
+}))
 export const relations_media = relations(media, () => ({}))
 export const relations_blog = relations(blog, ({ one }) => ({
   heroImage: one(media, {
@@ -393,6 +415,7 @@ export const relations_projects = relations(projects, ({ one, many }) => ({
     relationName: 'tags_tags',
   }),
 }))
+export const relations_payload_kv = relations(payload_kv, () => ({}))
 export const relations_payload_locked_documents_rels = relations(
   payload_locked_documents_rels,
   ({ one }) => ({
@@ -456,23 +479,27 @@ export const relations_payload_migrations = relations(payload_migrations, () => 
 type DatabaseSchema = {
   enum_projects_tech_stack_technologies: typeof enum_projects_tech_stack_technologies
   enum_projects_tags_tags: typeof enum_projects_tags_tags
+  users_sessions: typeof users_sessions
   users: typeof users
   media: typeof media
   blog: typeof blog
   projects_tech_stack_technologies: typeof projects_tech_stack_technologies
   projects_tags_tags: typeof projects_tags_tags
   projects: typeof projects
+  payload_kv: typeof payload_kv
   payload_locked_documents: typeof payload_locked_documents
   payload_locked_documents_rels: typeof payload_locked_documents_rels
   payload_preferences: typeof payload_preferences
   payload_preferences_rels: typeof payload_preferences_rels
   payload_migrations: typeof payload_migrations
+  relations_users_sessions: typeof relations_users_sessions
   relations_users: typeof relations_users
   relations_media: typeof relations_media
   relations_blog: typeof relations_blog
   relations_projects_tech_stack_technologies: typeof relations_projects_tech_stack_technologies
   relations_projects_tags_tags: typeof relations_projects_tags_tags
   relations_projects: typeof relations_projects
+  relations_payload_kv: typeof relations_payload_kv
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels
   relations_payload_locked_documents: typeof relations_payload_locked_documents
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels
@@ -480,7 +507,7 @@ type DatabaseSchema = {
   relations_payload_migrations: typeof relations_payload_migrations
 }
 
-declare module '@payloadcms/db-postgres/types' {
+declare module '@payloadcms/db-postgres' {
   export interface GeneratedDatabaseSchema {
     schema: DatabaseSchema
   }
